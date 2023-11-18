@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingredient Input</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    #ingredientPrompt {
+      margin-bottom: 10px;
+    }
+
+    #ingredientInput {
+      padding: 8px;
+      font-size: 16px;
+      width: 300px;
+    }
+
+    #submitBtn {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="ingredientPrompt">
+    <p>Enter the ingredients you want to use, separated by commas:</p>
+  </div>
+
+  <input type="text" id="ingredientInput" placeholder="e.g., ingredient1, ingredient2, ingredient3">
+
+  <br>
+
+  <button id="submitBtn" onclick="getIngredients()">Submit</button>
+
+  <script>
+    function getIngredients() {
+      // Get the value from the input box
+      var ingredientInput = document.getElementById('ingredientInput').value;
+
+      // Split the input string into an array of ingredients
+      var ingredientsArray = ingredientInput.split(',').map(function (ingredient) {
+        return ingredient.trim(); // Trim any leading or trailing whitespaces
+      });
+
+      // Display the array in the console (you can modify this part)
+      console.log('Ingredients:', ingredientsArray);
+
+      // You can perform additional actions with the array of ingredients here
+    }
+  </script>
+
+</body>
+</html>
