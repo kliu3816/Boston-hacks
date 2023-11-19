@@ -1,6 +1,17 @@
 import { useRef, useState } from "react";
+import axios from 'axios';
+import React from 'react';
 
 function App() {
+  
+  function fetchfoodrecog() {
+    axios.get('/api/foodrecog/')
+      .then(response => console.log(response.data))
+  }
+
+ 
+
+
   const inputRef1 = useRef(null);
   const inputRef2 = useRef(null);
   const [image1, setImage1] = useState(null);
@@ -22,6 +33,21 @@ function App() {
     // For simplicity, I'm setting stringsEntered to true when the button is clicked
     setStringsEntered(true);
   };
+
+  function handleButtonClick() {
+      const ingredientString = document.getElementById("ingredientInput").value;
+      const ingredients = ingredientString.trim().split(",");
+  
+      const dietString = document.getElementById("restrictionInput").value;
+      const diet = dietString.trim().split(",");
+  
+      // Clear the content on the page
+      document.getElementById("ingredientInput").value = "";
+      document.getElementById("restrictionInput").value = "";
+      
+      document.body.innerHTML="";
+    }
+    
 
   return (
     <div className="App">
@@ -63,13 +89,40 @@ function App() {
           <p>Now, enter any dietary restrictions or allergies, separated by commas:</p>
           <input type="text" id="restrictionInput" placeholder="e.g., gluten-free, vegetarian, nut-free" />
           <br />
-          <button id="submitBtn2" onClick={handleStringsSubmit}>
-            Submit
-          </button>
+          <button id="submitbutton" onClick={() => handleButtonClick()}>Submit</button>
         </div>
       )}
     </div>
-  );
+
+  )
+
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+
+  fetch("https://127.0.0.1:1000/api/genfood?food=chicken&intolerance=gluten",requestOptions)
+    .then(response => response.statusText())
+    .then(result => console.log(result))
+    .catch(error => console.log('error',error));
+
+
+
+  //display generated recipe, click button when done
+  function disprecipe(){
+
+  }
+  
+
+  //new window, photo upload
+  function uploadpics(){
+    document.body.innerHTML="";
+  }
+
+  //call foodrecog api
+
+  //judging
+
 }
 
 export default App;
