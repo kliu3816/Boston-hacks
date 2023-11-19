@@ -32,7 +32,7 @@ def foodrecog():
 
 
     # API configurations
-    asticaAPI_key = '57AC55AD-9C02-42E0-AEE2-C6FFFBB075C111AF106F-B61C-4C5A-88E9-FDA6AA4DC69D'  # visit https://astica.ai
+    asticaAPI_key = 'A21F919D-9B3A-420E-8F67-04403D45F90108CDD797-FB57-4E71-94FD-69817372133C'  # visit https://astica.ai
     asticaAPI_timeout = 25 # in seconds. "gpt" or "gpt_detailed" require increased timeouts
     asticaAPI_endpoint = 'https://vision.astica.ai/describe'
     asticaAPI_modelVersion = '2.1_full' # '1.0_full', '2.0_full', or '2.1_full'
