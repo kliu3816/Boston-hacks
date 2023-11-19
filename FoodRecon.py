@@ -57,7 +57,8 @@ def foodrecog():
 
     asticaAPI_result = asticaAPI(asticaAPI_endpoint, asticaAPI_payload, asticaAPI_timeout)
 
-    # print API output
+    generatedfoods = json.loads(json.dumps(asticaAPI_result, indent=4))
+    final_info = {'text' : generatedfoods['caption']['text'] , 'confidence' : generatedfoods['caption']['confidence'], 'description' : generatedfoods['caption_GPTS']}
     return json.dumps(asticaAPI_result, indent=4)
 
 
