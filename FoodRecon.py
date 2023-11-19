@@ -2,6 +2,7 @@ import requests
 import json
 import base64
 import os
+from openai import OpenAI
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -59,8 +60,20 @@ def foodrecog():
 
     generatedfoods = json.loads(json.dumps(asticaAPI_result, indent=4))
     final_info = {'text' : generatedfoods['caption']['text'] , 'confidence' : generatedfoods['caption']['confidence'], 'description' : generatedfoods['caption_GPTS']}
-    return json.dumps(asticaAPI_result, indent=4)
 
+
+    client = OpenAI()
+    client = OpenAI(api_key = "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")
+    completion = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": "You are Gordon Ramsey judging a cooking competition and you are presented with two dishes as images."},
+        {"role": "user", "content": "based on this paragraph:{} generate a review of the food and breifly describe the dishes and talk about them the way Gordan Ramsey does, with a rude attitude."}.format(final_info['description'])
+    ]
+    )
+
+    final_info['description'] = (completion.choices[0].message)
+    return json.dumps(final_info, indent=4)
 
 if __name__ == '__main__':
     app.run(debug=True)
