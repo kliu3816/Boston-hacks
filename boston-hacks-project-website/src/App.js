@@ -1,14 +1,15 @@
 import { useRef, useState } from "react";
-
+import axios from 'axios';
 import React from 'react';
 
 function App() {
   
+  function fetchfoodrecog() {
+    axios.get('/api/foodrecog/')
+      .then(response => console.log(response.data))
+  }
 
-  var requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-  };
+ 
 
 
   const inputRef1 = useRef(null);
@@ -33,39 +34,20 @@ function App() {
     setStringsEntered(true);
   };
 
-  async function getdata(url){
-  
-  }
-
   function handleButtonClick() {
       const ingredientString = document.getElementById("ingredientInput").value;
-      const ingredients = ingredientString.trim();
+      const ingredients = ingredientString.trim().split(",");
   
       const dietString = document.getElementById("restrictionInput").value;
-      const diet = dietString.trim();
+      const diet = dietString.trim().split(",");
   
       // Clear the content on the page
       document.getElementById("ingredientInput").value = "";
       document.getElementById("restrictionInput").value = "";
       
       document.body.innerHTML="";
-
-      let main_string = "https://127.0.0.1:1000/api/genfood?food="; 
-      let second_string = main_string.concat(ingredients);
-      let third_string = second_string.concat("&intolerance",diet);
-
-      third_string;
-
-      //const recipe = getdata(third_string);
-
-      //JSON.stringify(recipe);
-
-
     }
-
-  
     
-
 
   return (
     <div className="App">
@@ -112,27 +94,34 @@ function App() {
       )}
     </div>
 
-  
+  )
 
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
 
-  
+  fetch("https://127.0.0.1:1000/api/genfood?food=chicken&intolerance=gluten",requestOptions)
+    .then(response => response.statusText())
+    .then(result => console.log(result))
+    .catch(error => console.log('error',error));
+
 
 
   //display generated recipe, click button when done
-  //function disprecipe(){
+  function disprecipe(){
 
-  //}
+  }
   
 
   //new window, photo upload
-  //function uploadpics(){
-   // document.body.innerHTML="";
-  //}
+  function uploadpics(){
+    document.body.innerHTML="";
+  }
 
   //call foodrecog api
 
   //judging
-  )
 
 }
 
